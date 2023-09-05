@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -78,12 +79,11 @@ fun Spot(imagePath: Int, name: String, location: String, modifier: Modifier = Mo
     val image = painterResource(imagePath)
 
     Row(
-
         modifier = modifier
             .padding(16.dp)
             .fillMaxWidth()
             .clip(RoundedCornerShape(20.dp))
-            .background(color = Color.Red)
+            .background(color = Color.White)
             .padding(16.dp)
     ) {
         Image(
@@ -121,10 +121,39 @@ fun ListOfSpots(modifier: Modifier = Modifier) {
     }
 }
 
+@Composable
+fun ListOfSpotsPage(modifier: Modifier = Modifier) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(
+                brush = Brush.horizontalGradient(
+                    colors = listOf(Color(0xFF1BE7BE), Color(0xFF3774FF)),
+                    startX = 0f,
+                    endX = Float.POSITIVE_INFINITY
+            )
+        )
+    ) {
+        Text(
+            text = "The Best Surf Spots \nNext To You",
+            color = Color.White,
+            fontWeight = FontWeight.Bold,
+            fontSize = 30.sp,
+            lineHeight = 34.sp,
+            modifier = Modifier
+                .padding(
+                    start = 16.dp,
+                    top = 16.dp,
+                )
+        )
+        ListOfSpots()
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun SpotsListPreview() {
     LooseWavesTheme {
-        ListOfSpots()
+        ListOfSpotsPage()
     }
 }
