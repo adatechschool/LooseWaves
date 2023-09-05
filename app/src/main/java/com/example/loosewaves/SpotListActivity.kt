@@ -6,6 +6,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -78,6 +80,8 @@ fun Spot(imagePath: Int, name: String, location: String, modifier: Modifier = Mo
     Row(
 
         modifier = modifier
+            .padding(16.dp)
+            .fillMaxWidth()
             .clip(RoundedCornerShape(20.dp))
             .background(color = Color.Red)
             .padding(16.dp)
@@ -100,13 +104,27 @@ fun Spot(imagePath: Int, name: String, location: String, modifier: Modifier = Mo
 
 @Composable
 fun ListOfSpots(modifier: Modifier = Modifier) {
-
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        Spot(
+            imagePath = R.drawable.thomas_ashlock_64485_unsplash,
+            name = "Pipeline",
+            location = "Oahu, Hawaii"
+        )
+        Spot(
+            imagePath = R.drawable.jeremy_bishop_80371_unsplash,
+            name = "Superbank",
+            location = "Gold Coast, Australia"
+        )
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun SpotsListPreview() {
     LooseWavesTheme {
-        Spot(imagePath = R.drawable.thomas_ashlock_64485_unsplash, name = "Pipeline", location = "Oahu, Hawaii")
+        ListOfSpots()
     }
 }
