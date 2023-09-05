@@ -2,14 +2,20 @@ package com.example.loosewaves.ui.theme
 
 import android.app.Activity
 import android.os.Build
+import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
@@ -36,6 +42,13 @@ private val LightColorScheme = lightColorScheme(
     onSurface = Color(0xFF1C1B1F),
     */
 )
+
+val gradient = Color(0xFF3774FF)
+//val gradient = Brush.horizontalGradient(
+//    colors = listOf(Color(0xFF1BE781), Color(0xFF3774FF)),
+//    startX = 0f,
+//    endX=Float.POSITIVE_INFINITY,
+//)
 
 @Composable
 fun LooseWavesTheme(
@@ -65,6 +78,11 @@ fun LooseWavesTheme(
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,
-        content = content
-    )
+    ) {
+        Surface(
+            modifier = Modifier.fillMaxSize().background(color = gradient)
+        ) {
+            content()
+        }
+    }
 }
