@@ -23,10 +23,17 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -112,6 +119,7 @@ fun Login(navController: NavController? = null) {
                 )
             )
     ) {
+        // Contenu de la boîte principale
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -119,6 +127,7 @@ fun Login(navController: NavController? = null) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
+            // Titre "LooseWaves"
             Text(
                 text = "LooseWaves",
                 style = TextStyle(
@@ -128,45 +137,73 @@ fun Login(navController: NavController? = null) {
                 )
             )
             Spacer(modifier = Modifier.height(35.dp))
+
+            // Boîte blanche avec coins arrondis
             Box(
                 modifier = Modifier
                     .background(color = Color(0xFFF5F5F5), shape = RoundedCornerShape(size = 50.dp))
                     .fillMaxHeight()
             ) {
-                    Column(modifier = Modifier
+                // Contenu de la boîte blanche
+                Column(
+                    modifier = Modifier
                         .fillMaxWidth()
                         .offset(y = 29.dp),
-                        verticalArrangement = Arrangement.spacedBy(383.dp, Alignment.Top),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                    ) {
-                        Text(modifier = Modifier
+                    verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.Top),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    // Titre "Let’s Surf !"
+                    Text(
+                        modifier = Modifier
                             .width(121.dp)
                             .height(28.dp),
-                            text = "Let’s Surf !",
-                            style = TextStyle(
-                                fontSize = 24.sp,
-                                fontWeight = FontWeight(700),
-                                color = Color(0xFF303030),
-                            )
+                        text = "Let’s Surf !",
+                        style = TextStyle(
+                            fontSize = 24.sp,
+                            fontWeight = FontWeight(700),
+                            color = Color(0xFF303030),
                         )
-                        Text(
-                            modifier = Modifier
-                                .width(195.dp)
-                                .height(21.dp),
-                            text = "Pas de compte ?  Inscris toi",
-                            style = TextStyle(
-                                fontSize = 15.sp,
-                                lineHeight = 21.sp,
-                                fontWeight = FontWeight(700),
-                                color = Color(0xFF1E232C),
-                                letterSpacing = 0.15.sp,
-                            )
+                    )
+                    // Text fields (assuming SimpleFilledTextFieldSample is used here)
+                    Formulaire("Email")
+                    Formulaire("Mot de passe")
+
+                    // Lien "Pas de compte ? Inscris toi"
+                    Text(
+                        modifier = Modifier
+                            .width(195.dp)
+                            .height(21.dp),
+                        text = "Pas de compte ? Inscris toi",
+                        style = TextStyle(
+                            fontSize = 15.sp,
+                            lineHeight = 21.sp,
+                            fontWeight = FontWeight(700),
+                            color = Color(0xFF1E232C),
+                            letterSpacing = 0.15.sp,
                         )
-                    }
+                    )
                 }
             }
         }
     }
+}
+
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun Formulaire(alias: String) {
+    var textState by remember { mutableStateOf(alias) }
+
+    TextField(
+        value = textState,
+        onValueChange = { textState = it },
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            containerColor = Color.White,
+            textColor = Color(0xFF8391A1) // Couleur du texte
+        )
+    )
+}
 
 
 @Composable
