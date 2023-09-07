@@ -7,21 +7,12 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -29,7 +20,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -71,6 +61,8 @@ fun NavigationView() {
         composable("LaunchScreen") { LaunchScreen(navController = navController) }
         composable("Login") { Login(navController = navController) }
         composable("PageSpotList") { PageSpotList(navController = navController) }
+        composable("Register") { Register(navController = navController) }
+
     }
 }
 
@@ -99,75 +91,6 @@ fun LaunchScreen(navController: NavController? = null) {
     )
 }
 
-@Composable
-fun Login(navController: NavController? = null) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(
-                brush = Brush.horizontalGradient(
-                    colors = listOf(Color(0xFF1BE7BE), Color(0xFF3774FF)),
-                    startX = 0f,
-                    endX = Float.POSITIVE_INFINITY
-                )
-            )
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(top = 37.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Text(
-                text = "LooseWaves",
-                style = TextStyle(
-                    fontSize = 32.sp,
-                    fontWeight = FontWeight(700),
-                    color = Color(0xFFFFFFFF),
-                )
-            )
-            Spacer(modifier = Modifier.height(35.dp))
-            Box(
-                modifier = Modifier
-                    .background(color = Color(0xFFF5F5F5), shape = RoundedCornerShape(size = 50.dp))
-                    .fillMaxHeight()
-            ) {
-                    Column(modifier = Modifier
-                        .fillMaxWidth()
-                        .offset(y = 29.dp),
-                        verticalArrangement = Arrangement.spacedBy(383.dp, Alignment.Top),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                    ) {
-                        Text(modifier = Modifier
-                            .width(121.dp)
-                            .height(28.dp),
-                            text = "Let’s Surf !",
-                            style = TextStyle(
-                                fontSize = 24.sp,
-                                fontWeight = FontWeight(700),
-                                color = Color(0xFF303030),
-                            )
-                        )
-                        Text(
-                            modifier = Modifier
-                                .width(195.dp)
-                                .height(21.dp),
-                            text = "Pas de compte ?  Inscris toi",
-                            style = TextStyle(
-                                fontSize = 15.sp,
-                                lineHeight = 21.sp,
-                                fontWeight = FontWeight(700),
-                                color = Color(0xFF1E232C),
-                                letterSpacing = 0.15.sp,
-                            )
-                        )
-                    }
-                }
-            }
-        }
-    }
-
 
 @Composable
 fun Page1() {
@@ -193,7 +116,7 @@ fun Page2(navController: NavController? = null) {
             contentScale = ContentScale.FillBounds
         )
 
-        Button(onClick = { navController?.navigate("PageSpotList") }) {
+        Button(onClick = { navController?.navigate("Login") }) {
             Text("Démarrer")
         }
     }
