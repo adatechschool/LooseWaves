@@ -117,7 +117,7 @@ fun SpotPage(imagePath: Int, name: String, location: String, modifier: Modifier 
         modifier = Modifier
             .background(
                 brush = Brush.horizontalGradient(
-                    colors = listOf(Color(0xFF1BE7BE), Color(0xFF3774FF)),
+                    colors = listOf(Color(0xFF1BCFE7), Color(0xFF3774FF)),
                     startX = 0f,
                     endX = Float.POSITIVE_INFINITY
                 )
