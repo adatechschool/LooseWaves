@@ -116,7 +116,7 @@ fun Page2(navController: NavController? = null) {
             contentScale = ContentScale.FillBounds
         )
 
-        Button(onClick = { navController?.navigate("PageSpotList") }) {
+        Button(onClick = { navController?.navigate("Login") }) {
             Text("Démarrer")
         }
     }
