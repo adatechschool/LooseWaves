@@ -7,36 +7,19 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -78,6 +61,8 @@ fun NavigationView() {
         composable("LaunchScreen") { LaunchScreen(navController = navController) }
         composable("Login") { Login(navController = navController) }
         composable("PageSpotList") { PageSpotList(navController = navController) }
+        composable("Register") { Register(navController = navController) }
+
     }
 }
 
@@ -103,105 +88,6 @@ fun LaunchScreen(navController: NavController? = null) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp)
-    )
-}
-
-@Composable
-fun Login(navController: NavController? = null) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(
-                brush = Brush.horizontalGradient(
-                    colors = listOf(Color(0xFF1BE7BE), Color(0xFF3774FF)),
-                    startX = 0f,
-                    endX = Float.POSITIVE_INFINITY
-                )
-            )
-    ) {
-        // Contenu de la boîte principale
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(top = 37.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            // Titre "LooseWaves"
-            Text(
-                text = "LooseWaves",
-                style = TextStyle(
-                    fontSize = 32.sp,
-                    fontWeight = FontWeight(700),
-                    color = Color(0xFFFFFFFF),
-                )
-            )
-            Spacer(modifier = Modifier.height(35.dp))
-
-            // Boîte blanche avec coins arrondis
-            Box(
-                modifier = Modifier
-                    .background(color = Color(0xFFF5F5F5), shape = RoundedCornerShape(size = 50.dp))
-                    .fillMaxHeight()
-            ) {
-                // Contenu de la boîte blanche
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .offset(y = 29.dp),
-                    verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.Top),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    // Titre "Let’s Surf !"
-                    Text(
-                        modifier = Modifier
-                            .width(121.dp)
-                            .height(28.dp),
-                        text = "Let’s Surf !",
-                        style = TextStyle(
-                            fontSize = 24.sp,
-                            fontWeight = FontWeight(700),
-                            color = Color(0xFF303030),
-                        )
-                    )
-                    // Text fields (assuming SimpleFilledTextFieldSample is used here)
-                    Formulaire("Email")
-                    Formulaire("Mot de passe")
-
-                    // Lien "Pas de compte ? Inscris toi"
-                    Text(
-                        modifier = Modifier
-                            .width(195.dp)
-                            .height(21.dp),
-                        text = "Pas de compte ? Inscris toi",
-                        style = TextStyle(
-                            fontSize = 15.sp,
-                            lineHeight = 21.sp,
-                            fontWeight = FontWeight(700),
-                            color = Color(0xFF1E232C),
-                            letterSpacing = 0.15.sp,
-                        )
-                    )
-                }
-            }
-        }
-    }
-}
-
-
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun Formulaire(alias: String) {
-    var textState by remember { mutableStateOf(alias) }
-
-    TextField(
-        value = textState,
-        onValueChange = { textState = it },
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            containerColor = Color.White,
-            textColor = Color(0xFF8391A1) // Couleur du texte
-        )
     )
 }
 
