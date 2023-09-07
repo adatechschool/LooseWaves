@@ -34,7 +34,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -71,6 +70,7 @@ fun NavigationView() {
     NavHost(navController = navController, startDestination = "LaunchScreen") {
         composable("LaunchScreen") { LaunchScreen(navController = navController) }
         composable("Login") { Login(navController = navController) }
+        composable("PageSpotList") { PageSpotList(navController = navController) }
     }
 }
 
@@ -134,8 +134,8 @@ fun Login(navController: NavController? = null) {
                     .fillMaxHeight()
             ) {
                     Column(modifier = Modifier
-                            .fillMaxWidth()
-                            .offset(y = 29.dp),
+                        .fillMaxWidth()
+                        .offset(y = 29.dp),
                         verticalArrangement = Arrangement.spacedBy(383.dp, Alignment.Top),
                         horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
@@ -193,10 +193,15 @@ fun Page2(navController: NavController? = null) {
             contentScale = ContentScale.FillBounds
         )
 
-        Button(onClick = { navController?.navigate("Login") }) {
+        Button(onClick = { navController?.navigate("PageSpotList") }) {
             Text("Démarrer")
         }
     }
+}
+
+@Composable
+fun PageSpotList(navController: NavController? = null) {
+    ListOfSpotsPage()
 }
 
 @Preview(showBackground = true)

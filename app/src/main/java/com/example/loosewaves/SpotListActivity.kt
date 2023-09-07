@@ -35,7 +35,7 @@ class SpotListActivity : AppCompatActivity() {
 }
 
 @Composable
-fun Location(location: String, modifier: Modifier = Modifier) {
+fun LocationSpotList(location: String, modifier: Modifier = Modifier) {
     val pingImage = painterResource(R.drawable.location)
 
     Row(
@@ -43,7 +43,7 @@ fun Location(location: String, modifier: Modifier = Modifier) {
     ) {
         Image(
             painter = pingImage,
-            contentDescription = "ping",
+            contentDescription = "location",
             modifier = modifier
                 .width(16.dp)
                 .height(16.dp)
@@ -70,7 +70,7 @@ fun SpotInformation(name: String, location: String, modifier: Modifier = Modifie
                     bottom = 4.dp
                 )
         )
-        Location(location = location)
+        LocationSpotList(location = location)
     }
 }
 
