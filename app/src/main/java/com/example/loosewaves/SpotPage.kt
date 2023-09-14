@@ -27,6 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.loosewaves.ui.theme.LooseWavesTheme
 
 
@@ -112,7 +113,7 @@ fun SpotImage(imagePath: Int, name: String, location: String, modifier: Modifier
 }
 
 @Composable
-fun SpotPage(imagePath: Int, name: String, location: String, modifier: Modifier = Modifier) {
+fun SpotPage(imagePath: Int, name: String, location: String, navController: NavController? = null, modifier: Modifier = Modifier) {
     Box(
         modifier = Modifier
             .background(
