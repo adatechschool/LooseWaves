@@ -2,6 +2,7 @@ package com.example.loosewaves
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -38,6 +39,7 @@ import androidx.compose.runtime.remember
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import androidx.compose.foundation.lazy.items
+import com.example.loosewaves.Api.retrofitService
 
 class SpotListActivity : AppCompatActivity() {
 
@@ -49,7 +51,7 @@ class SpotListActivity : AppCompatActivity() {
     }
 }
 
-private const val BASE_URL = "http://localhost:3000"
+private const val BASE_URL = "http://10.0.2.2:3000/"
 
 private val retrofit = Retrofit.Builder()
     .addConverterFactory(MoshiConverterFactory.create())
@@ -58,7 +60,16 @@ private val retrofit = Retrofit.Builder()
 
 interface ApiService {
     @GET("surfspots")
-    suspend fun getSurfSpots(): List<SurfSpot>
+    suspend fun getSurfSpots(): List<SurfSpot> {
+        try {
+            val response = retrofitService.getSurfSpots()
+            Log.d("API Response", "Response: $response")
+            return response
+        } catch (e: Exception) {
+            Log.e("API Error", "Error: ${e.message}")
+            throw e
+        }
+    }
 }
 
 object Api {
