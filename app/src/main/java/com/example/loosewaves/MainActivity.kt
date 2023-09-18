@@ -34,6 +34,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.loosewaves.ui.theme.LooseWavesTheme
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.http.GET
 
 class MainActivity : ComponentActivity() {
 
@@ -124,7 +127,7 @@ fun Page2(navController: NavController? = null) {
 
 @Composable
 fun PageSpotList(navController: NavController? = null) {
-    ListOfSpotsPage()
+    SurfSpotListScreen()
 }
 
 @Preview(showBackground = true)
