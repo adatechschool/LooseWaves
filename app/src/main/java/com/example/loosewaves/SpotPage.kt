@@ -116,6 +116,7 @@ fun SpotImage(imagePath: Int, name: String, location: String, modifier: Modifier
 fun SpotPage(imagePath: Int, name: String, location: String, navController: NavController? = null, modifier: Modifier = Modifier) {
     Box(
         modifier = Modifier
+            .fillMaxSize()
             .background(
                 brush = Brush.horizontalGradient(
                     colors = listOf(Color(0xFF1BCFE7), Color(0xFF3774FF)),

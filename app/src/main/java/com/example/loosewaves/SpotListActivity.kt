@@ -187,7 +187,8 @@ fun ListOfSpots(
         items(surfSpots) { spot -> // use items function that takes a single list argument
             Spot(
                 name = spot.name,
-                location = spot.destination
+                location = spot.destination,
+                navController = navController,
             )
         }
     }
@@ -222,12 +223,12 @@ fun ListOfSpotsPage(
                     top = 16.dp,
                 )
         )
-        ListOfSpots(surfSpots)
+        ListOfSpots(surfSpots, navController)
     }
 }
 
 @Composable
-fun SurfSpotListScreen() {
+fun SurfSpotListScreen(navController: NavController? = null,) {
     val surfSpots = remember { mutableStateOf(listOf<SurfSpot>()) }
 
     LaunchedEffect(Unit) {
@@ -235,7 +236,7 @@ fun SurfSpotListScreen() {
     }
 
     LooseWavesTheme {
-        ListOfSpotsPage(surfSpots.value)
+        ListOfSpotsPage(surfSpots.value, navController)
     }
 }
 
