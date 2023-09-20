@@ -67,21 +67,27 @@ fun NavigationView() {
         composable("Login") { Login(navController = navController) }
         composable("ListOfSpotsPage") { SurfSpotListScreen(navController = navController) }
         composable(
-            route = "SpotPage/{imagePath}/{name}/{location}",
+            route = "SpotPage/{imagePath}/{name}/{location}/{difficulty}/{surfBreak}",
             arguments = listOf(
                 navArgument("imagePath") { type = NavType.IntType },
                 navArgument("name") { type = NavType.StringType },
-                navArgument("location") { type = NavType.StringType }
+                navArgument("location") { type = NavType.StringType },
+                navArgument("difficulty") { type = NavType.IntType },
+                navArgument("surfBreak") { type = NavType.StringType },
             )
         ) { backStackEntry ->
             val imagePath = backStackEntry.arguments?.getInt("imagePath")
             val name = backStackEntry.arguments?.getString("name")
             val location = backStackEntry.arguments?.getString("location")
-            if (imagePath != null && name != null && location != null) {
+            val difficulty = backStackEntry.arguments?.getInt("difficulty")
+            val surfBreak = backStackEntry.arguments?.getString("surfBreak")
+            if (imagePath != null && name != null && location != null && difficulty != null && surfBreak != null) {
                 SpotPage(
                     imagePath = imagePath,
                     name = name,
                     location = location,
+                    difficulty = difficulty,
+                    surfBreak = surfBreak,
                     navController = navController
                 )
             } else {
