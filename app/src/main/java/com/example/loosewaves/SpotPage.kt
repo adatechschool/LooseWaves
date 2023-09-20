@@ -113,7 +113,33 @@ fun SpotImage(imagePath: Int, name: String, location: String, modifier: Modifier
 }
 
 @Composable
-fun SpotPage(imagePath: Int, name: String, location: String, navController: NavController? = null, modifier: Modifier = Modifier) {
+fun SpotInfo(difficulty: Int, surfBreak: String, modifier: Modifier = Modifier) {
+    Box (
+        modifier = Modifier
+            .padding(start = 40.dp)
+    ) {
+        Column {
+            DifficultyLevel(
+                difficulty = difficulty,
+                modifier = Modifier.padding(start = 40.dp)
+            )
+            Text(
+                text = "Surf break:",
+                fontWeight = FontWeight.SemiBold,
+                fontSize = 20.sp,
+                modifier = Modifier.padding(top = 6.dp)
+            )
+            Text(
+                text = surfBreak,
+                fontSize = 18.sp,
+//                modifier = Modifier.padding(start = 4.dp)
+            )
+        }
+    }
+}
+
+@Composable
+fun SpotPage(imagePath: Int, name: String, location: String, difficulty: Int, surfBreak: String, navController: NavController? = null, modifier: Modifier = Modifier) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -125,11 +151,17 @@ fun SpotPage(imagePath: Int, name: String, location: String, navController: NavC
                 )
             )
     ) {
-        SpotImage(
-            imagePath = imagePath,
-            name = name,
-            location = location
-        )
+        Column{
+            SpotImage(
+                imagePath = imagePath,
+                name = name,
+                location = location
+            )
+            SpotInfo(
+                difficulty = difficulty,
+                surfBreak = surfBreak,
+            )
+        }
     }
 }
 
@@ -138,7 +170,7 @@ fun SpotPage(imagePath: Int, name: String, location: String, navController: NavC
 @Composable
 fun SpotDetailPreview() {
     LooseWavesTheme {
-        SpotPage(imagePath = R.drawable.thomas_ashlock_64485_unsplash, name = "Pipeline", location = "Oahu, Hawaii")
+        SpotPage(imagePath = R.drawable.thomas_ashlock_64485_unsplash, name = "Pipeline", location = "Oahu, Hawaii", difficulty = 4, surfBreak = "Reef Break")
     }
 }
 

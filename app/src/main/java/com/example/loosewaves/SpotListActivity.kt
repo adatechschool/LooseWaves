@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -39,8 +40,6 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.launch
 import androidx.compose.foundation.lazy.items
 import com.example.loosewaves.Api.retrofitService
 
@@ -105,27 +104,56 @@ fun LocationSpotList(location: String, modifier: Modifier = Modifier) {
         )
         Text(
             text = location,
-            fontSize = 12.sp,
+            fontSize = 16.sp,
             fontStyle = FontStyle.Italic
         )
     }
 }
 
 @Composable
-fun SpotInformation(name: String, location: String, modifier: Modifier = Modifier) {
+fun DifficultyImage(difficulty: Int, modifier: Modifier = Modifier) {
+    Row(modifier = modifier) {
+        for (i in 1..difficulty) {
+            Image(
+                painter = painterResource(R.drawable.wave),
+                contentDescription = "Wave for difficulty level $i",
+                modifier = Modifier
+                    .size(24.dp) // Adjust the size as needed
+                    .padding(end = 4.dp) // Add some space between the images
+            )
+        }
+    }
+}
+
+@Composable
+fun DifficultyLevel(difficulty: Int, modifier: Modifier = Modifier) {
+    Column {
+        Text(
+            text = "Difficulty level:",
+            fontWeight = FontWeight.SemiBold,
+            fontSize = 20.sp
+        )
+        DifficultyImage(difficulty = difficulty)
+    }
+}
+
+@Composable
+fun SpotInformation(name: String, location: String, difficulty: Int, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .padding(start = 20.dp)
     ) {
         Text(
             text = name,
+            fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
             modifier = modifier
                 .padding(
-                    bottom = 4.dp
+                    bottom = 6.dp
                 )
         )
         LocationSpotList(location = location)
+        DifficultyLevel(difficulty = difficulty)
     }
 }
 
@@ -134,6 +162,8 @@ fun Spot(
     imagePath: Int = R.drawable.thomas_ashlock_64485_unsplash,
     name: String,
     location: String,
+    difficulty: Int,
+    surfBreak: String,
     navController: NavController? = null,
     modifier: Modifier = Modifier
 ) {
@@ -141,7 +171,7 @@ fun Spot(
 
     Button(
         onClick = {
-            navController?.navigate("SpotPage/${imagePath}/${name}/${location}")
+            navController?.navigate("SpotPage/${imagePath}/${name}/${location}/${difficulty}/${surfBreak}")
         },
         colors = ButtonDefaults.buttonColors(
             containerColor = Color.White,
@@ -172,6 +202,7 @@ fun Spot(
             SpotInformation(
                 name = name,
                 location = location,
+                difficulty = difficulty,
             )
         }
     }
@@ -188,6 +219,8 @@ fun ListOfSpots(
             Spot(
                 name = spot.name,
                 location = spot.destination,
+                difficulty = spot.difficulty,
+                surfBreak = spot.surfBreak,
                 navController = navController,
             )
         }
