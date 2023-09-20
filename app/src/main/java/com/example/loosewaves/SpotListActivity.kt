@@ -2,6 +2,8 @@ package com.example.loosewaves
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -11,9 +13,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -27,12 +31,60 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.loosewaves.ui.theme.LooseWavesTheme
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.http.GET
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
+import androidx.compose.foundation.lazy.items
+import com.example.loosewaves.Api.retrofitService
 
 class SpotListActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContent {
+            SurfSpotListScreen()
+        }
     }
 }
+
+private const val BASE_URL = "http://10.0.2.2:3000/"
+
+private val retrofit = Retrofit.Builder()
+    .addConverterFactory(MoshiConverterFactory.create())
+    .baseUrl(BASE_URL)
+    .build()
+
+interface ApiService {
+    @GET("surfspots")
+    suspend fun getSurfSpots(): List<SurfSpot> {
+        try {
+            val response = retrofitService.getSurfSpots()
+            Log.d("API Response", "Response: $response")
+            return response
+        } catch (e: Exception) {
+            Log.e("API Error", "Error: ${e.message}")
+            throw e
+        }
+    }
+}
+
+object Api {
+    val retrofitService: ApiService by lazy { retrofit.create(ApiService::class.java) }
+}
+
+data class SurfSpot(
+    var id: String,
+    var name: String,
+    var destination: String,
+    var difficulty: Int,
+    var surfBreak: String,
+    var seasonBegin: String,
+    var seasonEnd: String
+)
 
 @Composable
 fun LocationSpotList(location: String, modifier: Modifier = Modifier) {
@@ -75,7 +127,7 @@ fun SpotInformation(name: String, location: String, modifier: Modifier = Modifie
 }
 
 @Composable
-fun Spot(imagePath: Int, name: String, location: String, modifier: Modifier = Modifier) {
+fun Spot(imagePath: Int = R.drawable.thomas_ashlock_64485_unsplash, name: String, location: String, modifier: Modifier = Modifier) {
     val image = painterResource(imagePath)
 
     Row(
@@ -103,26 +155,19 @@ fun Spot(imagePath: Int, name: String, location: String, modifier: Modifier = Mo
 }
 
 @Composable
-fun ListOfSpots(modifier: Modifier = Modifier) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-    ) {
-        Spot(
-            imagePath = R.drawable.thomas_ashlock_64485_unsplash,
-            name = "Pipeline",
-            location = "Oahu, Hawaii"
-        )
-        Spot(
-            imagePath = R.drawable.jeremy_bishop_80371_unsplash,
-            name = "Superbank",
-            location = "Gold Coast, Australia"
-        )
+fun ListOfSpots(surfSpots: List<SurfSpot>, modifier: Modifier = Modifier) {
+    LazyColumn {
+        items(surfSpots) { spot -> // use items function that takes a single list argument
+            Spot(
+                name = spot.name,
+                location = spot.destination
+            )
+        }
     }
 }
 
 @Composable
-fun ListOfSpotsPage(modifier: Modifier = Modifier) {
+fun ListOfSpotsPage(surfSpots: List<SurfSpot>, modifier: Modifier = Modifier) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -146,7 +191,20 @@ fun ListOfSpotsPage(modifier: Modifier = Modifier) {
                     top = 16.dp,
                 )
         )
-        ListOfSpots()
+        ListOfSpots(surfSpots)
+    }
+}
+
+@Composable
+fun SurfSpotListScreen() {
+    val surfSpots = remember { mutableStateOf(listOf<SurfSpot>()) }
+
+    LaunchedEffect(Unit) {
+        surfSpots.value = Api.retrofitService.getSurfSpots()
+    }
+
+    LooseWavesTheme {
+        ListOfSpotsPage(surfSpots.value)
     }
 }
 
@@ -154,6 +212,6 @@ fun ListOfSpotsPage(modifier: Modifier = Modifier) {
 @Composable
 fun SpotsListPreview() {
     LooseWavesTheme {
-        ListOfSpotsPage()
+        SurfSpotListScreen()
     }
 }
