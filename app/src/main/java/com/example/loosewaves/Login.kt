@@ -85,7 +85,7 @@ fun Login(navController: NavController? = null) {
                     Formulaire("Mot de passe")
 
                     Button(
-                        onClick = { navController?.navigate("PageSpotList") },
+                        onClick = { navController?.navigate("ListOfSpotsPage") },
                         modifier = Modifier
                             .fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(
