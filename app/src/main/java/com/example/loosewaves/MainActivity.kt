@@ -30,11 +30,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import com.example.loosewaves.ui.theme.LooseWavesTheme
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -65,32 +63,11 @@ fun NavigationView() {
     NavHost(navController = navController, startDestination = "LaunchScreen") {
         composable("LaunchScreen") { LaunchScreen(navController = navController) }
         composable("Login") { Login(navController = navController) }
-        composable("ListOfSpotsPage") { ListOfSpotsPage(navController = navController) }
-        composable(
-            route = "SpotPage/{imagePath}/{name}/{location}",
-            arguments = listOf(
-                navArgument("imagePath") { type = NavType.IntType },
-                navArgument("name") { type = NavType.StringType },
-                navArgument("location") { type = NavType.StringType }
-            )
-        ) { backStackEntry ->
-            val imagePath = backStackEntry.arguments?.getInt("imagePath")
-            val name = backStackEntry.arguments?.getString("name")
-            val location = backStackEntry.arguments?.getString("location")
-            if (imagePath != null && name != null && location != null) {
-                SpotPage(
-                    imagePath = imagePath,
-                    name = name,
-                    location = location,
-                    navController = navController
-                )
-            } else {
-                // Handle error case
-            }
-        }
+        composable("PageSpotList") { PageSpotList(navController = navController) }
+        composable("Register") { Register(navController = navController) }
+
     }
 }
-
 
 @Composable
 fun LaunchScreen(navController: NavController? = null) {
