@@ -129,7 +129,7 @@ fun DifficultyImage(difficulty: Int, modifier: Modifier = Modifier) {
 fun DifficultyLevel(difficulty: Int, modifier: Modifier = Modifier) {
     Column {
         Text(
-            text = "Difficulty level:",
+            text = "Difficulté:",
             fontWeight = FontWeight.SemiBold,
             fontSize = 20.sp
         )
@@ -180,6 +180,7 @@ fun Spot(
         modifier = modifier
             .padding(16.dp)
             .fillMaxWidth()
+            .background(color = Color(0xFFFFFFFF), shape = RoundedCornerShape(size = 40.dp))
     ) {
         Row(
             modifier = Modifier
@@ -234,6 +235,7 @@ fun ListOfSpotsPage(
     modifier: Modifier = Modifier
     ) {
     Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxSize()
             .background(
@@ -245,14 +247,13 @@ fun ListOfSpotsPage(
             )
     ) {
         Text(
-            text = "The Best Surf Spots \nNext To You",
-            color = Color.White,
+            text = "Les meilleurs spots \nde surf près de toi !",
+            color = Color.Black,
             fontWeight = FontWeight.Bold,
             fontSize = 30.sp,
             lineHeight = 34.sp,
             modifier = Modifier
                 .padding(
-                    start = 16.dp,
                     top = 16.dp,
                 )
         )
