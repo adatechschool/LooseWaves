@@ -88,7 +88,7 @@ fun Register(navController: NavController? = null) {
 
 
                     Button(
-                        onClick = { navController?.navigate("PageSpotList") },
+                        onClick = { navController?.navigate("ListOfSpotsPage") },
                         modifier = Modifier
                             .fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(
