@@ -116,18 +116,24 @@ fun SpotImage(imagePath: Int, name: String, location: String, modifier: Modifier
 fun SpotInfo(difficulty: Int, surfBreak: String, modifier: Modifier = Modifier) {
     Box (
         modifier = Modifier
-            .padding(start = 40.dp)
+            .padding(start = 40.dp, end = 40.dp)
+            .background(color = Color(0xFFF5F5F5), shape = RoundedCornerShape(size = 30.dp))
+            .fillMaxWidth()
     ) {
-        Column {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            ){
             DifficultyLevel(
                 difficulty = difficulty,
-                modifier = Modifier.padding(start = 40.dp)
             )
             Text(
                 text = "Surf break:",
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 20.sp,
-                modifier = Modifier.padding(top = 6.dp)
+                modifier = Modifier.padding(top = 16.dp)
             )
             Text(
                 text = surfBreak,
