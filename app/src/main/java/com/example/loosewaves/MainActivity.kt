@@ -65,6 +65,7 @@ fun NavigationView() {
     NavHost(navController = navController, startDestination = "LaunchScreen") {
         composable("LaunchScreen") { LaunchScreen(navController = navController) }
         composable("Login") { Login(navController = navController) }
+        composable("Register") { Register(navController = navController) }
         composable("ListOfSpotsPage") { SurfSpotListScreen(navController = navController) }
         composable(
             route = "SpotPage/{imagePath}/{name}/{location}/{difficulty}/{surfBreak}",
